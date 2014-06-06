@@ -1,0 +1,12 @@
+/* 
+    Created on : Jun 6, 2014, 12:29:25 PM
+    Author     : ctsai
+*/
+
+#tb_menu {
+    margin: auto;
+}
+#tb_menu button {
+    width: 30em;
+    height: 5em;
+}
