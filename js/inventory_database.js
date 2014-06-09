@@ -6,7 +6,11 @@ $( document ).ready(function(){
             var active = $( "#div_tabs" ).tabs( "option", "active" );
             switch (active) {
                 case 0:
-                    initD2();
+                    getD2DB1().done(function(result) {
+                        console.log(result);
+                    }).fail(function() {
+                        // an error occurred
+                    });
                     break;
             }
         }
@@ -23,41 +27,73 @@ $( document ).ready(function(){
         
     });
 });
-
-/**
- * Initialize Department 2 Inventory DB interface
- * @returns {undefined}
- */
-function initD2()
-{
-    var d2 = new D2DB1("wtf");
-}
-
-function getData(department)
+/*
+function getD2DB1(idTag) 
 {
     $.ajax({
         type: "POST",
-        url: "jthk_donation_control.php",
-        data: { function:    "getDonationPublic",
-                searchBy:    searchBy ,
-                searchValue: searchValue, 
-                toDonate:    toDonate }
-    }).done(function( msg ) {
+        url: "inventory_control.php",
+        data: { function:   "getDb1",
+                department: 2}
+    }).success(function( msg ) {
+        var db1 = [];
         var jsonObj = jQuery.parseJSON( msg );
         if (jsonObj === null) {
             alert("No result found");
         } else {
             for (var i = 0; i < jsonObj.length; i++) {
-                var obj = jsonObj[i];
-                donationList+= "<h3>" + obj.Title + "</h3>";
-                donationList+= "<div>";
-                for (var key in obj) {
-                    if (obj.hasOwnProperty(key)) {
-                        donationList+= key + ":" + obj[key] + "<br>";
-                    }
-                }
-                donationList+= "</div>";
+                db1[i] = new D2DB1(jsonObj[i]);
             }
+            setD2DB1(db1);
         }
     });
 }
+
+function setD2DB1(obj)
+{
+    var tempTable = "<table id='tb_d2_item_list' border='1'><tr>"
+                  + "<th>Item Code</th>"
+                  + "<th>Packaging</th>"
+                  + "<th>S.G</th>"
+                  + "<th>Grade</th>"
+                  + "<th>Gauge MM</th>"
+                  + "<th>Width MM</th>"
+                  + "<th>Length MM</th>"
+                  + "<th>Gauge</th>"
+                  + "<th>Width</th>"
+                  + "<th>Length</th>"
+                  + "<th>Sheet/lb</th></tr>"
+    for (var i = 0; i < obj.length; i++) {
+        tempTable+= "<tr>"
+                  + "<td>" + obj[i].HIC           + "</td>"
+                  + "<td>" + obj[i].Packing       + "</td>"
+                  + "<td>" + obj[i].SG            + "</td>"
+                  + "<td>" + obj[i].Grade         + "</td>"
+                  + "<td>" + obj[i].GaugeM        + "</td>"
+                  + "<td>" + obj[i].Gauge         + "</td>"
+                  + "<td>" + obj[i].WidthM        + "</td>"
+                  + "<td>" + obj[i].Width         + "</td>"
+                  + "<td>" + obj[i].LengthM       + "</td>"
+                  + "<td>" + obj[i].Length        + "</td>"
+                  + "<td>" + obj[i].SheetPerPound + "</td>"
+                  + "</tr>"
+    }
+    tempTable+= "</table>";
+    $( "#div_d2_item_list" ).html(tempTable);
+}
+
+function D2DB1(obj) 
+{
+    this.HIC           = obj.ItemCode;
+    this.Packing       = obj.Spec;
+    this.SG            = parseFloat(obj.SG);
+    this.Grade         = obj.Grade;
+    this.GaugeM        = parseFloat(obj.Mgauge);
+    this.Gauge         = obj.Gauge;
+    this.WidthM        = parseFloat(obj.Mwidth);
+    this.Width         = parseFloat(obj.Width);
+    this.LengthM       = parseFloat(obj.Mlength);
+    this.Length        = parseFloat(obj.Length);
+    this.SheetPerPound = parseFloat(obj.LbsSheet);
+}
+*/
