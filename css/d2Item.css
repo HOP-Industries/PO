@@ -1,0 +1,17 @@
+/* 
+    Created on : Jun 9, 2014, 10:53:04 AM
+    Author     : ctsai
+*/
+
+#tb_d2_item_list, #tb_d2_item_edit {
+    font-size: small;
+}
+
+#tb_d2_item_edit input {
+    font-size: small;
+}
+
+#tb_d2_item_list tr:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}

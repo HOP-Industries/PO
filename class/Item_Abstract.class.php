@@ -22,6 +22,7 @@ abstract class Item_Abstract
         try {
             $dsn = "sqlsrv:Server=" . DB_SERVER . ",1433;Database=" . DB_PROD;
             $dbh = new PDO($dsn, DB_USER , DB_PASSWORD);
+            $dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             return $dbh;
         } catch(PDOException $e) {
             echo $e->getMessage();

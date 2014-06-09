@@ -7,6 +7,7 @@
         <script src="../lib/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
         <script src="js/d2_item.js"></script>
         <link rel=stylesheet href="../lib/jquery-ui/css/cupertino/jquery-ui-1.10.4.custom.min.css"/>
+        <link rel="stylesheet" href="css/d2Item.css"/>
     </head>
     <body>
         <div id="div_tabs">
@@ -49,12 +50,14 @@
                                 </td>
                                 <td>
                                     <label for="input_d2_db1_widthmm">Width mm</label>
-                                    <input type="number" id="input_d2_db1_gaugemm">
+                                    <input type="number" id="input_d2_db1_widthmm">
                                 </td>
                                 <td>
                                     <label for="input_d2_db1_lengthmm">Length mm</label>
-                                    <input type="number" id="input_d2_db1_gaugemm">
+                                    <input type="number" id="input_d2_db1_lengthmm">
                                 </td>
+                                
+                                <!--
                                 <td>
                                     <label id="input_d2_db1_pricepound">$/lb</label>
                                     <input type="number" id="input_d2_db1_pricepound">
@@ -63,6 +66,7 @@
                                     <label id="input_d2_db1_dscnt">dscnt</label>
                                     <input type="number" id="input_d2_db1_dscnt">
                                 </td>
+                                -->
                             </tr>
                             <tr>
                                 <td>
@@ -71,16 +75,18 @@
                                 </td>
                                 <td>
                                     <label for="input_d2_db1_width">Width Inch</label>
-                                    <input type="number" id="input_d2_db1_gauge">
+                                    <input type="number" id="input_d2_db1_width">
                                 </td>
                                 <td>
                                     <label for="input_d2_db1_length">Length Inch</label>
-                                    <input type="number" id="input_d2_db1_gauge">
+                                    <input type="number" id="input_d2_db1_length">
                                 </td>
+                                <!--
                                 <td>
                                     <label for="input_d2_db1_netpricepound">Net $/lb</label>
                                     <input type="number" id="input_d2_db1_netpricepound">
                                 </td>
+                                -->
                                 <td>
                                     <label for="input_d2_db1_poundpersheet">lbs/sheets</label>
                                     <input type="number" id="input_d2_db1_poundpersheet">
@@ -88,6 +94,13 @@
                             </tr>
                         </table>
                     </form>
+                </div>
+                <hr>
+                <div id="div_d2_edit_control">
+                    <button class="add_item" value="fm_d2_item_edit">Add</button>
+                    <button class="update_item" value="fm_d2_item_edit">Update</button>
+                    <button class="delete_item" value="fm_d2_item_edit">Delete</button>
+                    <button class="clear_item" value="fm_d2_item_edit">Clear</button>
                 </div>
                 <div id="div_d2_error_message"></div>
             </div>

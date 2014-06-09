@@ -4,7 +4,7 @@ require_once "class/Item_Abstract.class.php";
 
 $function   = filter_input(INPUT_POST, "function");
 $department = filter_input(INPUT_POST, "department");
-
+$item = filter_input(INPUT_POST, "item");
 switch ($department) {
     case 1:
         
@@ -16,4 +16,4 @@ switch ($department) {
         
         break;
 }
-$obj->run($function);
+$obj->run($function, $item);
