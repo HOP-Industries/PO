@@ -52,7 +52,26 @@
                 </table>
             </div>
             <div id="div_d2_po_items">
-                
+                <table id="tb_d2_po_items" border="1">
+                    <tr id="td_d2_po_item_header">
+                        <th colspan="8">Unit</th>
+                        <th colspan="3">Total</th>
+                    </tr>
+                    <tr>
+                        <th>Item</th>
+                        <th>S.G.</th>
+                        <th>Grade</th>
+                        <th>Gauge</th>
+                        <th>Width CD</th>
+                        <th>Length MD</th>
+                        <th>lbs/sheet</th>
+                        <th>US$/lb</th>
+                        <th>Sheets</th>
+                        <th>Pound</th>
+                        <th>US$</th>
+                        <th>Delete</th>
+                    </tr>
+                </table>
             </div>
             <hr>
             <button id="but_d2_po_add_item">Add</button>

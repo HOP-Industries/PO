@@ -24,15 +24,28 @@ function initD2Item()
     });
 }
 
-function initD2POItem()
+function initD2POItem(callback)
 {
-    $.post("inventory_control.php", 
-           {function:"getDb1", department: 2}, 
-            function(results){
-                alert(results);
-                return results;
+    $.ajax({
+        type: "POST",
+        url: "inventory_control.php",
+        data: { function:   "getDb1",
+                department: 2}
+    }).done(function( msg ){
+        var db1 = [];
+        var jsonObj = jQuery.parseJSON( msg );
+        if (jsonObj === null) {
+            alert("No result found");
+        } else {
+            for (var i = 0; i < jsonObj.length; i++) {
+                db1[i] = new D2DB1(jsonObj[i]);
+            }
+        }
+        callback( db1 );
     });
 }
+
+
 /**
  * Getting d2 db1 information from database
  * @returns {jqXHR}
