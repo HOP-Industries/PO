@@ -41,12 +41,20 @@ function addItemInput(db1)
     $( ".d2_usdlb :input" ).keyup(function(){
         var rowId = $( this ).parent().parent().prop("id");
         var price = $( this ).val();
-        console.log(rowId);
-        console.log(price);
+        if (validateNumber(price)) {
+            changePrice(rowId, price);
+        } else {
+            alert(price + " is not a valid number.");
+        }
     });
     $( ".d2_sheets :input" ).keyup(function(){
         var rowId = $( this ).parent().parent().prop("id");
-        var price = $( this ).val();
+        var sheet = $( this ).val();
+        if (validateNumber(sheet)) {
+            changeSheet(rowId, sheet);
+        } else {
+            alert(sheet + " is not a valid number.");
+        }
     });
 }
 
@@ -72,7 +80,9 @@ function loadPOItem(itemId, rowId, db1)
     $( "#" + rowId + " .d2_gauge" ).html(item.Gauge + "\"<br>" + item.GaugeM + "mm");
     $( "#" + rowId + " .d2_width" ).html(item.Width + "\"<br>" + item.WidthM + "mm");
     $( "#" + rowId + " .d2_length" ).html(item.Length + "\"<br>" + item.LengthM + "mm");
-    $( "#" + rowId + " .d2_lbsheet" ).html(item.SheetPerPound + "\"<br>" + item.SheetPerPound + "mm");
+    $( "#" + rowId + " .d2_lbsheet" ).html(item.SheetPerPound);
+    $( "#" + rowId + " .d2_usdlb :input" ).val(0);
+    $( "#" + rowId + " .d2_sheets :input" ).val(0);
 }
 
 /**
@@ -128,15 +138,29 @@ function deleteRow(id)
 
 function changePrice(rowId, price)
 {
-    
+    var lbPerSheet = parseFloat($( "#" + rowId + " .d2_lbsheet" ).html());
+    var numSheet   = parseInt($( "#" + rowId + " .d2_sheets :input" ).val());
+    var totalLbs   = parseFloat(numSheet * lbPerSheet).toFixed(3);
+    var totalPrice = parseFloat(price * totalLbs).toFixed(3);
+    $( "#" + rowId + " .d2_lbs" ).html(totalLbs);
+    $( "#" + rowId + " .d2_usd" ).html(totalPrice);
 }
 
-function changeSheet(rowId, sheet)
+function changeSheet(rowId, numSheet)
 {
-    
+    var lbPerSheet = parseFloat($( "#" + rowId + " .d2_lbsheet" ).html());
+    var price      = parseInt($( "#" + rowId + " .d2_usdlb :input" ).val());
+    var totalLbs   = parseFloat(numSheet * lbPerSheet).toFixed(3);
+    var totalPrice = parseFloat(price * totalLbs).toFixed(3);
+    $( "#" + rowId + " .d2_lbs" ).html(totalLbs);
+    $( "#" + rowId + " .d2_usd" ).html(totalPrice);
 }
 
-function validateNumber(rowId)
+function validateNumber(input)
 {
-    
+    if (! isNaN(input)) {
+        return true;
+    } else {
+        return false;
+    }
 }
